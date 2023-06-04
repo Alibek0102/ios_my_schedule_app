@@ -16,7 +16,7 @@ extension UIViewController {
         
         alert.view.addSubview(datePicker)
         
-        var ok = UIAlertAction(title: "Ok", style: .default) { (action) in
+        let ok = UIAlertAction(title: "Ok", style: .default) { (action) in
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd.MM.yyyy"
             let dateString = dateFormatter.string(from: datePicker.date)
@@ -32,7 +32,7 @@ extension UIViewController {
             completionHandler(numberWeekday, date)
         }
         
-        var cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
         
         alert.addAction(ok)
         alert.addAction(cancel)
