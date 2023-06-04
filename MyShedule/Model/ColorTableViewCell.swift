@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScheduleSetColorViewController: UITableViewController {
+class ColorTableViewCell: UITableViewController {
     
     let idSetColor = "idSetColor"
     let idScheduleHeader = "idScheduleHeader"
@@ -46,9 +46,5 @@ class ScheduleSetColorViewController: UITableViewController {
         header.setText(headerText: sections, section: section)
         return header
     }
-    
-}
-
-extension ScheduleSetColorViewController {
     
 }

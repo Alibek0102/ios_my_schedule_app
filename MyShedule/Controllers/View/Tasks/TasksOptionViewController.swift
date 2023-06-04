@@ -45,13 +45,14 @@ class TasksOptionViewController: UITableViewController {
         case 1: alertTextField(label: cell.optionLabel, name: "Название", placeholder: "Введите название...")
         case 2: alertTextField(label: cell.optionLabel, name: "Задание", placeholder: "Введите задание...")
         default:
-            toColorVC()
+            toColorVC(vc: ColorTableViewCell())
         }
     }
     
-    func toColorVC(){
-        let colorVC = ScheduleSetColorViewController()
-        navigationController?.pushViewController(colorVC, animated: true)
+    func toColorVC(vc: UIViewController){
+        let controller = vc
+        navigationController?.navigationBar.topItem?.title = "Задачи"
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
