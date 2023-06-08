@@ -14,6 +14,8 @@ class TasksOptionViewController: UITableViewController {
     
     let headerElements = ["DATA", "NAME", "TASK", "COLOR"]
     
+    let labelText = ["Дата", "Название", "Задание", ""]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +25,7 @@ class TasksOptionViewController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(TasksOptionViewCell.self, forCellReuseIdentifier: tasksRowIdentifier)
+        tableView.register(OptionsTableViewCell.self, forCellReuseIdentifier: tasksRowIdentifier)
         tableView.register(ShaduleTableViewHeader.self, forHeaderFooterViewReuseIdentifier: tasksHeaderIdentifier)
     }
     
@@ -36,14 +38,14 @@ class TasksOptionViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! TasksOptionViewCell
+        let cell = tableView.cellForRow(at: indexPath) as! OptionsTableViewCell
         
         switch indexPath.section {
-        case 0: alertDate(label: cell.optionLabel) { dayInWeek, date in
+        case 0: alertDate(label: cell.textForCell) { dayInWeek, date in
             print(date)
         }
-        case 1: alertTextField(label: cell.optionLabel, name: "Название", placeholder: "Введите название...")
-        case 2: alertTextField(label: cell.optionLabel, name: "Задание", placeholder: "Введите задание...")
+        case 1: alertTextField(label: cell.textForCell, name: "Название", placeholder: "Введите название...")
+        case 2: alertTextField(label: cell.textForCell, name: "Задание", placeholder: "Введите задание...")
         default:
             toColorVC(vc: ColorTableViewCell())
         }
@@ -62,8 +64,8 @@ class TasksOptionViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: tasksRowIdentifier, for: indexPath) as! TasksOptionViewCell
-        cell.setConfig(indexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: tasksRowIdentifier, for: indexPath) as! OptionsTableViewCell
+        cell.setTasksConfigure(arrayOfTexts: labelText, indexPath: indexPath)
         return cell
     }
     
