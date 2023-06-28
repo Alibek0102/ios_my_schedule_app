@@ -55,5 +55,41 @@ class ContactOptionTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath) as! OptionsTableViewCell
+        
+        switch(indexPath.section) {
+        case 0: alertTextField(label: cell.textForCell, name: "Name", placeholder: "Enter contact name")
+        case 1: alertTextField(label: cell.textForCell, name: "Phone", placeholder: "Enter contact phone")
+        case 2: alertTextField(label: cell.textForCell, name: "Mail", placeholder: "Enter contact mail")
+        case 4: alertForChooseImage { sourse in
+            self.getPhotoOrCamera(source: sourse)
+        }
+        default:
+            return
+        }
+    }
 
+}
+
+extension ContactOptionTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func getPhotoOrCamera(source: UIImagePickerController.SourceType) {
+        if(UIImagePickerController.isSourceTypeAvailable(source)){
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = source
+            present(imagePicker, animated: true)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let cell = tableView.cellForRow(at: [4,0]) as! OptionsTableViewCell
+        cell.rowView.image = info[.editedImage] as? UIImage
+        cell.rowView.contentMode = .scaleAspectFill
+        cell.rowView.clipsToBounds = true
+        dismiss(animated: true)
+    }
 }
